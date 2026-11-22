@@ -3,7 +3,8 @@
    ============================================================= */
 
 // ===== CONFIG =====
-const API_BASE = 'https://typequest-mbti-production.up.railway.app';
+// Same-origin via Cloudflare Worker: mbti.879879.xyz/api/*
+const API_BASE = '';
 
 const state = {
   current: 0,

@@ -1,0 +1,25 @@
+# Cloudflare Worker — TypeQuest API
+name = "typequest-api"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+# Bind KV namespace for order storage
+kv_namespaces = [
+  { binding = "KV", id = "YOUR_KV_NAMESPACE_ID", preview_id = "YOUR_KV_NAMESPACE_ID" }
+]
+
+# Bind to custom path on your domain
+routes = [
+  { pattern = "mbti.879879.xyz/api/*", zone_name = "879879.xyz" }
+]
+
+# Environment variables (set via wrangler secret or Cloudflare dashboard)
+# These contain sensitive values — DO NOT commit real secrets.
+# Set them via: wrangler secret put PAYPAL_CLIENT_ID
+#              wrangler secret put PAYPAL_CLIENT_SECRET
+#              wrangler secret put PAYPAL_ENV
+#              wrangler secret put FRONTEND_URL
+[vars]
+PAYPAL_ENV = "sandbox"
+FRONTEND_URL = "https://mbti.879879.xyz"
+# PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET should be set as SECRETS, not here
