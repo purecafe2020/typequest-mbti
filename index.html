@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TypeQuest — Discover Your True Personality</title>
+<meta name="description" content="Take our free MBTI-inspired personality test and uncover your true type. 30 questions, 5 minutes, 16 personality types." />
+<meta property="og:title" content="TypeQuest — Discover Your True Personality" />
+<meta property="og:description" content="Free MBTI-inspired personality test. Find your type in 5 minutes." />
+<meta property="og:type" content="website" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- Decorative background blobs -->
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo">
+      <span class="logo-icon">✦</span>
+      TypeQuest
+    </a>
+    <div class="nav-links">
+      <a href="#top">Home</a>
+      <a href="#test">Take Test</a>
+      <a href="#types">16 Types</a>
+      <a href="#about">About</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== LANDING PAGE ==================== -->
+<section id="top" class="page page-landing active">
+  <div class="container">
+    <div class="hero">
+      <span class="badge">Free · 5 min · No sign-up</span>
+      <h1 class="hero-title">Discover the <span class="gradient-text">real you</span></h1>
+      <p class="hero-sub">
+        Answer 30 thoughtful questions. We'll match you to one of 16 distinct personality types
+        and reveal your strengths, blind spots, and ideal life path.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="startTest()">
+          Start the Test →
+        </button>
+        <a href="#types" class="btn btn-ghost">Browse 16 Types</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">500K+</div>
+          <div class="stat-label">People tested</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4.9★</div>
+          <div class="stat-label">Average rating</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">16</div>
+          <div class="stat-label">Unique types</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Accurate & Scientific</h3>
+        <p>Based on the Myers-Briggs framework with modern psychometric refinements.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast & Easy</h3>
+        <p>Just 30 questions. No accounts, no ads, no fluff.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Private & Anonymous</h3>
+        <p>We don't ask for your email. Your results stay yours.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💎</div>
+        <h3>Deep Insights</h3>
+        <p>Go beyond 4 letters — discover your strengths, relationships, and career fit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TEST PAGE ==================== -->
+<section id="test" class="page page-test">
+  <div class="container">
+    <div class="progress-wrap">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-text">
+        Question <span id="currentNum">1</span> / <span id="totalNum">30</span>
+      </div>
+    </div>
+
+    <div class="question-card" id="questionCard">
+      <h2 class="question-text" id="questionText"></h2>
+      <div class="options" id="optionsWrap"></div>
+    </div>
+
+    <div class="test-nav">
+      <button class="btn btn-ghost" id="btnPrev" onclick="prevQuestion()">← Back</button>
+      <button class="btn btn-primary" id="btnNext" onclick="nextQuestion()">Next →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LOADING ==================== -->
+<section id="loading" class="page page-loading">
+  <div class="container">
+    <div class="loader">
+      <div class="loader-ring"></div>
+      <p class="loader-text">Analyzing your answers...</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RESULT PAGE ==================== -->
+<section id="result" class="page page-result">
+  <div class="container">
+    <div class="result-header" id="resultHeader">
+      <span class="badge badge-result">Your Type</span>
+      <h1 class="result-type" id="resultType">—</h1>
+      <p class="result-name" id="resultName">—</p>
+      <p class="result-tagline" id="resultTagline">—</p>
+    </div>
+
+    <!-- 4 dimensions breakdown -->
+    <div class="dimensions" id="dimensionsWrap"></div>
+
+    <!-- Strengths & Weaknesses -->
+    <div class="result-grid">
+      <div class="result-card strengths">
+        <h3>✨ Your Strengths</h3>
+        <ul id="strengthsList"></ul>
+      </div>
+      <div class="result-card weaknesses">
+        <h3>⚠️ Growth Areas</h3>
+        <ul id="weaknessesList"></ul>
+      </div>
+    </div>
+
+    <!-- Career & Relationships (PREMIUM) -->
+    <div class="premium-locked" id="premiumLocked">
+      <div class="lock-overlay">
+        <div class="lock-content">
+          <div class="lock-icon">🔒</div>
+          <h3>Unlock Your Full Report</h3>
+          <p>Get your ideal career paths, relationship compatibility, and growth roadmap.</p>
+          <div class="pricing-row">
+            <div class="price-option">
+              <div class="price-amount">$4.99</div>
+              <div class="price-desc">One-time · Full Report</div>
+            </div>
+            <div class="price-divider">or</div>
+            <div class="price-option">
+              <div class="price-amount">$3.99<span class="price-per">/mo</span></div>
+              <div class="price-desc">Monthly · Premium Access</div>
+            </div>
+          </div>
+          <div id="paypal-button-container"></div>
+          <p class="secure-note">🔒 Secure payments via PayPal · No account required</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="premium-content" id="premiumContent" style="display:none;">
+      <div class="result-grid">
+        <div class="result-card">
+          <h3>💼 Ideal Careers</h3>
+          <ul id="careersList"></ul>
+        </div>
+        <div class="result-card">
+          <h3>💕 Relationship Insights</h3>
+          <p id="relationshipText"></p>
+        </div>
+      </div>
+      <div class="result-card" style="margin-bottom:16px;">
+        <h3>🚀 Growth Roadmap</h3>
+        <ul id="roadmapList"></ul>
+      </div>
+    </div>
+
+    <!-- Share & Retake -->
+    <div class="result-actions">
+      <button class="btn btn-primary" onclick="retakeTest()">🔄 Retake Test</button>
+      <button class="btn btn-ghost" onclick="shareResult()">📤 Share My Type</button>
+      <a href="#types" class="btn btn-ghost">Explore All 16 Types</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 16 TYPES PAGE ==================== -->
+<section id="types" class="page page-types">
+  <div class="container">
+    <h2 class="section-title">Meet the 16 Types</h2>
+    <p class="section-sub">Each type has its own superpowers. Which one are you?</p>
+    <div class="types-grid" id="typesGrid"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Made with ✦ by TypeQuest · MBTI-inspired personality framework</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
