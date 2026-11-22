@@ -3,8 +3,7 @@
    ============================================================= */
 
 // ===== CONFIG =====
-// Production: deployed API
-const API_BASE = 'https://37l8et8gad2jweco7ov.traesite.cn';
+const API_BASE = 'https://typequest-mbti-production.up.railway.app';
 
 const state = {
   current: 0,
